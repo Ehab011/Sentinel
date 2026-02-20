@@ -6,9 +6,13 @@ name: Sentinel CI
 
 on:
   push:
-    branches: [main, master]
+    branches:
+      - main
+      - master
   pull_request:
-    branches: [main, master]
+    branches:
+      - main
+      - master
 
 jobs:
   ci:
@@ -30,44 +34,44 @@ jobs:
           cache: true
 
 
-    - name: Lint Node
-      run: |
-        npm run lint
-      working-directory: ./server
+      - name: Lint Node
+        run: |
+          npm run lint
+        working-directory: ./server
 
-    - name: Lint Flutter
-      run: |
-        flutter analyze
-      working-directory: ./client
+      - name: Lint Flutter
+        run: |
+          flutter analyze
+        working-directory: ./client
 
-    - name: Build Node
-      run: |
-        npm ci
-        npm run build
-      working-directory: ./server
+      - name: Build Node
+        run: |
+          npm ci
+          npm run build
+        working-directory: ./server
 
-    - name: Build Flutter
-      run: |
-        flutter pub get
-        flutter build apk
-      working-directory: ./client
+      - name: Build Flutter
+        run: |
+          flutter pub get
+          flutter build apk
+        working-directory: ./client
 
-    - name: Test Node
-      run: |
-        npm test
-      working-directory: ./server
+      - name: Test Node
+        run: |
+          npm test
+        working-directory: ./server
 
-    - name: Test Flutter
-      run: |
-        flutter test
-      working-directory: ./client
+      - name: Test Flutter
+        run: |
+          flutter test
+        working-directory: ./client
 
-    - name: Deploy
-      run: |
-        echo "Deploy step - configure for your env"
-      working-directory: ./server
+      - name: Deploy
+        run: |
+          echo "Deploy step - configure for your env"
+        working-directory: ./server
 
-    - name: Notify: abdelrhman.wahdan@ejust.edu.eg
-      run: |
-        echo "Notify step - Slack/email integration"
-      working-directory: ./server
+      - name: Notify: abdelrhman.wahdan@ejust.edu.eg
+        run: |
+          echo "Notify step - Slack/email integration"
+        working-directory: ./server
