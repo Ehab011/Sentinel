@@ -31,19 +31,19 @@ jobs:
       - name: Lint Node (skip if not configured)
         working-directory: server
         run: |
-          node -e "const p=require('./package.json'); if(!p.scripts || !p.scripts.lint){ console.log('No lint script found. Skipping Node lint.'); process.exit(0);} console.log('Running Node lint...');"
+          node -e "const p=require('./package.json'); if(!p.scripts || !p.scripts.lint){ console.log('No lint script found. Skipping Node lint.'); process.exit(1);} console.log('Running Node lint...');" || exit 0
           npm run lint
 
       - name: Build Node (skip if not configured)
         working-directory: server
         run: |
-          node -e "const p=require('./package.json'); if(!p.scripts || !p.scripts.build){ console.log('No build script found. Skipping Node build.'); process.exit(0);} console.log('Running Node build...');"
+          node -e "const p=require('./package.json'); if(!p.scripts || !p.scripts.build){ console.log('No build script found. Skipping Node build.'); process.exit(1);} console.log('Running Node build...');" || exit 0
           npm run build
 
       - name: Test Node (skip if not configured)
         working-directory: server
         run: |
-          node -e "const p=require('./package.json'); if(!p.scripts || !p.scripts.test){ console.log('No test script found. Skipping Node tests.'); process.exit(0);} console.log('Running Node tests...');"
+          node -e "const p=require('./package.json'); if(!p.scripts || !p.scripts.test){ console.log('No test script found. Skipping Node tests.'); process.exit(1);} console.log('Running Node tests...');" || exit 0
           npm test
 
       # -------------------
