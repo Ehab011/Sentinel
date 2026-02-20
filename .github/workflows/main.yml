@@ -1,0 +1,82 @@
+name: Sentinel p3
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # -------------------
+      # Node (server)
+      # -------------------
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install Node deps
+        working-directory: server
+        run: npm ci
+
+      - name: Lint Node (skip if not configured)
+        working-directory: server
+        run: |
+          node -e "const p=require('./package.json'); if(!p.scripts || !p.scripts.lint){ console.log('No lint script found. Skipping Node lint.'); process.exit(1);} console.log('Running Node lint...');" || exit 0
+          npm run lint
+
+      - name: Build Node (skip if not configured)
+        working-directory: server
+        run: |
+          node -e "const p=require('./package.json'); if(!p.scripts || !p.scripts.build){ console.log('No build script found. Skipping Node build.'); process.exit(1);} console.log('Running Node build...');" || exit 0
+          npm run build
+
+      - name: Test Node (skip if not configured)
+        working-directory: server
+        run: |
+          node -e "const p=require('./package.json'); if(!p.scripts || !p.scripts.test){ console.log('No test script found. Skipping Node tests.'); process.exit(1);} console.log('Running Node tests...');" || exit 0
+          npm test
+
+      # -------------------
+      # Flutter (client)
+      # -------------------
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.24.0"
+          channel: stable
+          cache: true
+
+      - name: Flutter pub get
+        working-directory: client
+        run: flutter pub get
+
+      - name: Lint Flutter
+        working-directory: client
+        run: flutter analyze
+
+      - name: Test Flutter
+        working-directory: client
+        run: flutter test
+
+      - name: Build Flutter APK
+        working-directory: client
+        run: flutter build apk
+
+      # -------------------
+      # Deploy / Notify placeholders
+      # -------------------
+      - name: Deploy
+        run: echo "Deploy step - configure for your env"
+
+      - name: Notify
+        run: echo "Notify step - Slack/email integration"
