@@ -71,7 +71,7 @@ jobs:
           echo "Deploy step - configure for your env"
         working-directory: ./server
 
-      - name: Notify: abdelrhman.wahdan@ejust.edu.eg
+      - name: Notify
         run: |
           echo "Notify step - Slack/email integration"
         working-directory: ./server
