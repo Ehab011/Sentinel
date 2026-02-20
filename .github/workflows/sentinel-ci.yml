@@ -1,4 +1,4 @@
-name: Sentinel CI
+name: Sentinel CI2
 
 on:
   push:
@@ -46,30 +46,30 @@ jobs:
         run: |
           npm ci
           npm run build
-        working-directory: "Sentinel/server"
+        working-directory: "server"
 
       - name: Build Flutter
         run: |
           flutter pub get
           flutter build apk
-        working-directory: "Sentinel/client"
+        working-directory: "client"
 
       - name: Test Node
         run: |
           npm test
-        working-directory: "Sentinel/server"
+        working-directory: "server"
 
       - name: Test Flutter
         run: |
           flutter test
-        working-directory: "Sentinel/client"
+        working-directory: "client"
 
       - name: Deploy
         run: |
           echo "Deploy step - configure for your env"
-        working-directory: "Sentinel/server"
+        working-directory: "server"
 
-      - name: "Notify: abdelrhman.wahdan@ejust.edu.eg"
+      - name: "Notify: abdoehab991@gmail.com"
         run: |
           echo "Notify step - Slack/email integration"
-        working-directory: "Sentinel/server"
+        working-directory: "server"
