@@ -1,0 +1,14 @@
+{
+  "name": "daily-expense-tracker",
+  "version": "1.0.0",
+  "description": "Daily Expense Tracker - Flutter + Node.js",
+  "private": true,
+  "scripts": {
+    "client:run": "cd client && flutter run",
+    "client:test": "cd client && flutter test",
+    "server:dev": "cd server && npm run dev",
+    "server:start": "cd server && npm start",
+    "server:test": "cd server && npm test",
+    "server:lint": "cd server && npm run lint"
+  }
+}

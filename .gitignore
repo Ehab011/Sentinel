@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Prisma
+prisma/*.db
+prisma/*.db-journal
+
+# Environment
+.env
+.env.local
+*.local
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+*.log
+
+# SQLite
+*.db
+*.db-journal

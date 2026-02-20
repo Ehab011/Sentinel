@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Expense {
+  id       Int      @id @default(autoincrement())
+  amount   Float
+  category String
+  note     String?
+  date     DateTime
+  createdAt DateTime @default(now())
+}
